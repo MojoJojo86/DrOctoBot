@@ -1,0 +1,10 @@
+Good Morning ${PERSON_NAME},
+
+The schedule is as follows.
+
+ColoRectal Team:
+SDP:
+TEST!
+
+Yours Truly,
+Dr AutoBot.
