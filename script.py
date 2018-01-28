@@ -48,7 +48,7 @@ doctors = {
     'OSD': 56,
     'PMF': 11,
     'RC': 59, 
-    'SDP': 56,
+    'SDP': 13,
     'SJC': 23,
     'TD': 46,
     'VS': 124,
@@ -57,11 +57,13 @@ doctors = {
 
 # Dictionary containing all the data that will be passed with the POST request.
 data = {
-    'date': dateToday,
-    'options': 56,
+    'date': '30/01/2018',#dateToday,
+    'options': 13,
     'locations': "All Locations",
     'sites': "All Sites"
 }
+
+scheduleData = {}
 
 # Creation and setting of the API_ENDPOINT variable which consists of the url + the POST endpoint extras added on.
 API_ENDPOINT = config.url + "/schedule/xml/"
@@ -93,13 +95,18 @@ print(dateToday)
 i = 0
 while i < len(hospital):
     if hospital[i].text != 'ABSENT':
-        print(times[i].text + "   " + hospital[i].text + "   " + location[i-1].text)
+        #print(times[i].text + "   " + hospital[i].text + "   " + location[i-1].text)
+        scheduleData['time'] = times[i].text
+        scheduleData['hospital'] = hospital[i].text
+        scheduleData['location'] = location[i-1].text
     elif hospital[i].text == 'ABSENT':
-        print(hospital[i].text)
+        #print(hospital[i].text)
+        scheduleData['hospital'] = hospital[i].text
     i = i + 1
 
 # SUDO Make the code perform multiple POST requests, one for each doctor. This data dictionary value for the doctor will change eachtime based on an array of doctor IDs
 
+print(scheduleData)
 
 # Function to get list of names and contacts from file
 def get_contacts(filename):
@@ -148,4 +155,4 @@ def send_email():
 
     server.quit()
 
-send_email()
+#send_email()
