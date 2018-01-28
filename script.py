@@ -63,7 +63,7 @@ data = {
     'sites': "All Sites"
 }
 
-scheduleData = {}
+scheduleDataList = []
 
 # Creation and setting of the API_ENDPOINT variable which consists of the url + the POST endpoint extras added on.
 API_ENDPOINT = config.url + "/schedule/xml/"
@@ -94,6 +94,7 @@ location = schedule.find_all("span", class_="detailsleft")
 print(dateToday)
 i = 0
 while i < len(hospital):
+    scheduleData = {}
     if hospital[i].text != 'ABSENT':
         #print(times[i].text + "   " + hospital[i].text + "   " + location[i-1].text)
         scheduleData['time'] = times[i].text
@@ -102,11 +103,12 @@ while i < len(hospital):
     elif hospital[i].text == 'ABSENT':
         #print(hospital[i].text)
         scheduleData['hospital'] = hospital[i].text
+    scheduleDataList.append(scheduleData)
     i = i + 1
 
-# SUDO Make the code perform multiple POST requests, one for each doctor. This data dictionary value for the doctor will change eachtime based on an array of doctor IDs
-
-print(scheduleData)
+print('SDP')
+for s in scheduleDataList:
+    print(s)
 
 # Function to get list of names and contacts from file
 def get_contacts(filename):
